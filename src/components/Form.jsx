@@ -7,13 +7,13 @@ const Form = () =>{
 
     //хук useState
     const [burnoutForm, setBurnoutForm] = useState({
-        restTime: '',
-        sex: '',
+        joinDate: '',
+        gender: '',
         companyType: '',
-        distanceWork: '',
-        workLoad: '',
-        workingTime: '',
-        mentalFatigueScore: ''
+        worksFromHome: '',
+        workload: '',
+        workTime: '',
+        fatigueScore: ''
     });
 
     //установка значений формы
@@ -32,7 +32,7 @@ const Form = () =>{
     const handleSubmit = async(event) =>{
         event.preventDefault();
         try{
-            const response = await fetch ('localhost:8080/api/anylyze',{
+            const response = await fetch ('http://localhost:8080/api/analyze',{
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,21 +60,21 @@ const Form = () =>{
             <form onSubmit={handleSubmit}>               
                 <label>Укажите дату окончания последнего отпуска сотрудника</label>
                 <DatePicker
-                    name='restTime'
-                    selected={burnoutForm.restTime}
+                    name='joinDate'
+                    selected={burnoutForm.joinDate}
                     dateFormat="yyyy/MM/dd" 
                     placeholderText="Выберите дату"
-                    onChange={date => setBurnoutForm({ ...burnoutForm, restTime: date })}
+                    onChange={date => setBurnoutForm({ ...burnoutForm, joinDate: date })}
                     required
                 />
 
                 <label> Укажите Ваш пол</label>
                 <span>
                     <input
-                        name="sex"
+                        name="gender"
                         type="radio" 
                         value="male"
-                        checked={burnoutForm.sex === 'male'}
+                        checked={burnoutForm.gender === 'male'}
                         onChange={handleChange}
                         required
                     />
@@ -82,10 +82,10 @@ const Form = () =>{
                 </span>
                 <span>
                     <input
-                        name="sex"
+                        name="gender"
                         type="radio" 
                         value="female"
-                        checked={burnoutForm.sex === 'female'}
+                        checked={burnoutForm.gender === 'female'}
                         onChange={handleChange}
                         required
                     />
@@ -120,9 +120,9 @@ const Form = () =>{
                 <span>
                     <input
                         type="radio"
-                        name="distanceWork"
+                        name="worksFromHome"
                         value="yes"
-                        checked={burnoutForm.distanceWork === 'yes'}
+                        checked={burnoutForm.worksFromHome === 'yes'}
                         onChange={handleChange}
                         required
                     />
@@ -131,9 +131,9 @@ const Form = () =>{
                 <span>
                     <input
                         type="radio"
-                        name="distanceWork"
+                        name="worksFromHome"
                         value="no"
-                        checked={burnoutForm.distanceWork === 'no'}
+                        checked={burnoutForm.worksFromHome === 'no'}
                         onChange={handleChange}
                         required
                     />
@@ -146,8 +146,8 @@ const Form = () =>{
                 </label>
                 <input
                     type="number"
-                    name="workLoad"
-                    value={burnoutForm.workLoad}
+                    name="workload"
+                    value={burnoutForm.workload}
                     onChange={handleChange}
                     min="0"
                     max="5"
@@ -159,8 +159,8 @@ const Form = () =>{
                 <label>Укажите, сколько часов в день работает сотрудник от 1 до 10</label>
                 <input
                     type="number"
-                    name="workingTime"
-                    value={burnoutForm.workingTime}
+                    name="workTime"
+                    value={burnoutForm.workTime}
                     onChange={handleChange}
                     min="1"
                     max="10"
@@ -174,8 +174,8 @@ const Form = () =>{
                 </label>
                 <input
                     type="number"
-                    name="mentalFatigueScore"
-                    value={burnoutForm.mentalFatigueScore}
+                    name="fatigueScore"
+                    value={burnoutForm.fatigueScore}
                     onChange={handleChange}
                     min="0"
                     max="10"
