@@ -198,7 +198,10 @@ const Form = () =>{
                     ) : (
                         <div>
                             <p>Вероятность выгорания: {burnoutResult.burnRatePercent}</p>
-                            <p>Ключевые факторы: {burnoutResult.recommendations}</p>
+                                <p>Ключевые факторы:</p>
+                                {burnoutResult.recommendations.split('\n').map((item, index) => (
+                                    <p key={index}>{item}</p>
+                                ))}
                         </div>
                     )}
                 </div>
