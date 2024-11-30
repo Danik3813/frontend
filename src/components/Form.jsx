@@ -32,7 +32,7 @@ const Form = () =>{
     const handleSubmit = async(event) =>{
         event.preventDefault();
         try{
-            const response = await fetch ('',{
+            const response = await fetch ('localhost:8080/api/anylyze',{
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const Form = () =>{
         }
         catch(error){
             console.error(error);
-            setResult({ error: "Произошла ошибка при отправке данных" });
+            setBurnoutResult({ error: "Произошла ошибка при отправке данных" });
         }
     }
 
@@ -164,7 +164,6 @@ const Form = () =>{
                     onChange={handleChange}
                     min="1"
                     max="10"
-                    step="0.1"
                     placeholder="Введите число"
                     required
                 />
