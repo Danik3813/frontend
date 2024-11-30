@@ -31,6 +31,7 @@ const Form = () =>{
     //отправка формы
     const handleSubmit = async(event) =>{
         event.preventDefault();
+        setBurnoutResult(null);
         try{
             const response = await fetch ('http://localhost:8080/api/analyze',{
                 method: "POST",
@@ -60,11 +61,16 @@ const Form = () =>{
             <form onSubmit={handleSubmit}>               
                 <label>Укажите дату окончания последнего отпуска сотрудника</label>
                 <DatePicker
-                    name='joinDate'
-                    selected={burnoutForm.joinDate}
-                    dateFormat="yyyy/MM/dd" 
+                    name="joinDate"
+                    selected={burnoutForm.joinDate ? new Date(burnoutForm.joinDate) : null}
+                    dateFormat="yyyy-MM-dd"
                     placeholderText="Выберите дату"
-                    onChange={date => setBurnoutForm({ ...burnoutForm, joinDate: date })}
+                    onChange={(date) =>
+                        setBurnoutForm((prevForm) => ({
+                            ...prevForm,
+                            joinDate: date ? date.toISOString().split("T")[0] : "",
+                        }))
+                    }
                     required
                 />
 
@@ -192,7 +198,7 @@ const Form = () =>{
                     ) : (
                         <div>
                             <p>Вероятность выгорания: {burnoutResult.burnRatePercent}</p>
-                            <p>Ключевые факторы: {burnoutResult.reccomendations}</p>
+                            <p>Ключевые факторы: {burnoutResult.recommendations}</p>
                         </div>
                     )}
                 </div>
