@@ -1,17 +1,33 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(17,17,18);
+    font-weight: bold;
+}
+
+.Form h1{
+    font-family: Arial Black;
+}
+
+.line{
+    height: 2px;
+    background-color: rgb(17,17,18);
+}
+
 .Form, .burnoutResult{
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
-    padding: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    box-shadow: 6px 7px 14px -1px rgba(34, 60, 80, 0.32);
-    background-color: hsl(213deg 85% 97%);
+    border-radius: 12px;
+    padding: 25px;
+    background-color: rgb(153, 153, 255, 0.4);
     z-index: 1;
+    box-shadow: 11px 13px 9px -3px rgba(0,0,0,0.1);
 }
+
 
 .burnoutResult{
     z-index: 2;
+    background-color: rgb(153, 153, 255);
 }
 
 .Form, .Form form{
@@ -26,6 +42,56 @@
     padding: 10px;
 }
 
+#submitButton{
+    color: white;
+    font-weight: 600;
+    background-color: rgb(0, 51, 204, 0.9);
+    border-radius: 10px;
+    padding: 8px;
+    border: none;
+}
 
+#submitButton:hover{
+    background-color: rgb(0, 51, 204, 0.95);
+}
 
+#submitButton:active{
+    background-color: rgb(0, 51, 204, 1);
+}
+
+.Form input{
+    outline: none;
+}
+
+.dataPicker-container{
+    width: 100%;
+}
+
+.close{
+    border: none;
+    outline: none;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    position: absolute;
+    right: 10px;
+}
+
+.close:hover{
+    cursor: pointer;
+}
+
+.burnRatePercent, .recommendations{
+    color: blue;
+    font-family: Arial Black;
+}
+
+.react-datepicker__input-container input {
+    box-sizing: border-box;
+    border: none; /* Убирает стандартный border */
+    outline: none; /* Убирает outline */
+    padding: 10px; /* Сохраняет внутренние отступы */
+    border-radius: 5px;
+}
 

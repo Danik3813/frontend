@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/Form.css'
-import { file } from "@babel/types";
+import {ru} from "date-fns/locale";
 const Form = () =>{
 
     //хук useState
@@ -57,24 +57,33 @@ const Form = () =>{
 
     return (
         <div className="Form">
-            <h1>Расчёт вероятности выгорания</h1>
+            <h1>
+                Расчёт вероятности выгорания
+                <div className="line"></div>
+            </h1>
             <form onSubmit={handleSubmit}>               
-                <label>Укажите дату окончания последнего отпуска сотрудника</label>
-                <DatePicker
-                    name="joinDate"
-                    selected={burnoutForm.joinDate ? new Date(burnoutForm.joinDate) : null}
-                    dateFormat="yyyy-MM-dd"
-                    placeholderText="Выберите дату"
-                    onChange={(date) =>
-                        setBurnoutForm((prevForm) => ({
-                            ...prevForm,
-                            joinDate: date ? date.toISOString().split("T")[0] : "",
-                        }))
-                    }
-                    required
-                />
-
-                <label> Укажите Ваш пол</label>
+                <label>Укажите дату окончания последнего отпуска сотрудника.</label>
+                <div className="dataPicker-container">
+                    <DatePicker
+                        name="joinDate"
+                        selected={burnoutForm.joinDate ? new Date(burnoutForm.joinDate) : null}
+                        dateFormat="yyyy-MM-dd"
+                        placeholderText="Выберите дату"
+                        onChange={(date) =>
+                            setBurnoutForm((prevForm) => ({
+                                ...prevForm,
+                                joinDate: date ? date.toISOString().split("T")[0] : "",
+                            }))
+                        }
+                        minDate={new Date("2009-01-01")}
+                        maxDate={new Date("2023-12-31")}
+                        locale={ru}
+                        autoComplete="off"
+                        required
+                    /> 
+                </div>
+            
+                <label> Укажите Ваш пол.</label>
                 <span>
                     <input
                         name="gender"
@@ -98,7 +107,7 @@ const Form = () =>{
                     Женский
                 </span>            
                 
-                <label>Укажите тип компании сотрудника</label>
+                <label>Укажите тип компании сотрудника.</label>
                 <span>
                     <input
                         name="companyType"
@@ -122,7 +131,7 @@ const Form = () =>{
                     Сфера услуг
                 </span>
 
-                <label>Укажите, есть ли у сотрудника возможность работать удалённо</label>
+                <label>Укажите, есть ли у сотрудника возможность работать удалённо.</label>
                 <span>
                     <input
                         type="radio"
@@ -148,7 +157,7 @@ const Form = () =>{
 
                 <label>
                     Оцените степень рабочей нагрузки сотрудника от 0 до 5
-                    <br></br>где 0 - минимальное значение, 5 - максимальное значение
+                    <br></br>где 0 - минимальное значение, 5 - максимальное значение.
                 </label>
                 <input
                     type="number"
@@ -162,7 +171,7 @@ const Form = () =>{
                     required
                 />
 
-                <label>Укажите, сколько часов в день работает сотрудник от 1 до 10</label>
+                <label>Укажите, сколько часов в день работает сотрудник от 1 до 10.</label>
                 <input
                     type="number"
                     name="workTime"
@@ -176,7 +185,7 @@ const Form = () =>{
 
                 <label>
                     Оцените степень умственной усталости сотрудника от 1 до 10,
-                    <br></br>где 0 - минимальное значение, 10 - максимальное значение
+                    <br></br>где 0 - минимальное значение, 10 - максимальное значение.
                 </label>
                 <input
                     type="number"
@@ -189,7 +198,12 @@ const Form = () =>{
                     placeholder="Введите число"
                     required
                 />
-                <button type="submit">Отправить!</button>
+                <button
+                    type="submit"
+                    id="submitButton"
+                >
+                    Отправить!
+                </button>
             </form>
             {burnoutResult && (
                 <div className="burnoutResult">
@@ -197,9 +211,16 @@ const Form = () =>{
                         <p className="Error">{burnoutResult.error}</p>
                     ) : (
                         <div>
-                            <p>Вероятность выгорания: {burnoutResult.burnRatePercent}</p>
-                                <p>Ключевые факторы:</p>
-                                {burnoutResult.recommendations.split('\n').map((item, index) => (
+                            <button
+                                className="close"
+                                onClick={() => setBurnoutResult(null)}
+                            >
+                                X
+                            </button>
+                            <p className="burnRatePercent">Вероятность выгорания:</p>
+                            <p>{burnoutResult.burnRatePercent}</p>
+                                <p className="recommendations">Ключевые факторы:</p>
+                                {burnoutResult.recommendations.split(',').map((item, index) => (
                                     <p key={index}>{item}</p>
                                 ))}
                         </div>
